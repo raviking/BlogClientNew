@@ -1,0 +1,48 @@
+﻿@model BlogClientNew.Models.LoginModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow">
+    <title>Login</title>
+    @*<link href="~/Content/themes/simple/admin.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.1.10.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.3.0.min.js"></script>*@
+
+    @System.Web.Optimization.Styles.Render("~/Content/themes/simple/admin")
+    @System.Web.Optimization.Scripts.Render("~/jquery", "~/jqueryval", "~/jqueryunobtrusiveval")
+</head>
+<body>
+    <div id="login-div">
+        @Html.ValidationSummary(true)
+        @using (Html.BeginForm()) { 
+            <fieldset>
+                <legend>Login</legend>
+                <p>
+                    @Html.LabelFor(x=>x.UserName)
+                    @Html.TextBoxFor(x=>x.UserName)
+                    @Html.ValidationMessageFor(x=>x.UserName)
+                </p>
+                <p>
+                    @Html.LabelFor(x=>x.Password)
+                    @Html.TextBoxFor(x=>x.Password)
+                    @Html.ValidationMessageFor(x=>x.Password)
+                </p>
+                @Html.Hidden("ReturnUrl")
+                @Html.AntiForgeryToken()
+                <p>
+                    <input type="submit" value="Login" />
+                </p>
+            </fieldset>
+        }
+    </div>
+</body>
+</html>

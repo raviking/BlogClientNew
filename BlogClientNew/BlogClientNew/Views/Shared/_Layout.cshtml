@@ -1,0 +1,52 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keywords" content="@(ViewBag.Keywords ?? System.Configuration.ConfigurationManager.AppSettings["MetaKeywords"])" />
+    <meta name="description" content="@(ViewBag.Description ?? System.Configuration.ConfigurationManager.AppSettings["MetaDescription"])"/>
+    <meta name="author" content="@System.Configuration.ConfigurationManager.AppSettings["Author"]"/>
+    <title>@ViewBag.Title</title>
+    @*<link href="~/Content/themes/simple/style.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/app.js"></script>*@    
+    @System.Web.Optimization.Styles.Render("~/css");
+    @System.Web.Optimization.Scripts.Render("~/jquery", "~/jqueryval", "~/jqueryunobtrusiveval", "~/js")
+</head>
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <div id="logo_text">
+                    <h1><a href="/">My<span class="logo_color">Blog</span></a></h1>
+                    <h2>Talk Less and Write More</h2>
+                </div>
+            </div>
+        </div>
+        <!--Menubar-->
+        <div id="menubar">
+           <ul id="menu">
+            <li>@Html.ActionLink("Posts", "Posts")</li>
+            <li>@Html.ActionLink("Contact", "Contact")</li>
+            <li>@Html.ActionLink("About Me", "AboutMe")</li>
+           </ul>
+        </div>
+
+        <!-- site content-->
+        <div id="site_content">
+            <div class="feeddiv">
+                <a href="http://feeds.feedburner.com/Mitechdevcom" title="Subscribe to my blog" >Subscribe to my blog</a>
+             </div>
+            @Html.Partial("_Search")
+            @RenderBody()
+            @Html.Action("SideBar","Blog")
+        </div>
+
+        <!--footer-->
+        <div id="footer">
+            Copyright ï¿½ @DateTime.Now.Year BlogClient All Rights Reserved
+        </div>
+    </div>   
+</body>
+</html>

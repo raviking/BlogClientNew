@@ -1,0 +1,30 @@
+﻿@model BlogClientNew.Models.ListViewModel
+
+@*First read the current page *@
+@{
+    var currentPage = ViewContext.RequestContext.HttpContext.Request["p"] != null ? int.Parse(ViewContext.RequestContext.HttpContext.Request["p"]) : 1;
+    var totalPages = Math.Ceiling((double)Model.TotalPosts/10);      
+}
+@*Check we need to display the pagination links or not*@
+@if (currentPage > 1 || currentPage < totalPages) {
+    var p = string.Format("p={0}", currentPage - 1);
+    var n = string.Format("p={0}", currentPage + 1);
+    
+    @* If the view is rendered for "search" action append the pagination value with "&" *@
+    if (ViewContext.RouteData.Values["action"].ToString().Equals("Search", StringComparison.OrdinalIgnoreCase))
+    {
+        var s = string.Format("?s={0}", ViewContext.RequestContext.HttpContext.Request["s"]);
+        p = string.Format("{0}&{1}", s, p);
+        n = string.Format("{0}&{1}", s, n);
+    }
+    else {
+        p = string.Concat("?", p);
+        n = string.Concat("?", n);
+    }
+    
+    <!-- pagination links-->
+    <div class="pager">
+        <a href="@p" title="Previous" class="previous" style="visibility:@(currentPage >1 ? "visible":"collapse")"><< Previous</a> 
+        <a href="@n" title="Next" class="next" style="visibility:@(currentPage<totalPages ? "visible":"collapse")">Next >></a>
+    </div> 
+}

@@ -1,0 +1,51 @@
+﻿@model BlogClient.Core.Objects.Post
+
+<div class="post">
+    <div class="post-meta">
+        <!--Post heading-->
+        <div class="row">
+            <div class="post-title">
+                <h2>@Html.PostLink(Model)</h2>
+            </div>
+
+            <!-- AddThis -->
+          <div class="share-links">
+            @Html.Partial("_AddThis")
+          </div>
+        </div>
+
+        <div class="row">
+            <!--category-->
+            <div class="post-category">
+                <span>Category:</span>@Html.CategoryLink(Model.Category)
+            </div>
+            <!--tags-->
+            <div class="post-tags">
+                <span>Tags:</span>@Helpers.Tags(Html,Model.Tags)
+            </div>
+            <!--Posted date-->
+            <div class="posted-date">
+                @Model.PostedOn.ToConfigLocalTime()
+            </div>
+        </div>
+        <!--post short Description-->
+        <div class="post-body">
+            @Html.Raw(Model.ShortDescription)
+        </div>
+        
+        <!-- post footer -->
+        <div class="post-foot">
+            @Html.ActionLink("Continue...", "post", "Blog",
+                new 
+                { 
+                    year=Model.PostedOn.Year,
+                    month=Model.PostedOn.Month,
+                    day=Model.PostedOn.Day,
+                    title=Model.UrlSlug    
+                },
+                new {title="continue...."}
+            )
+        </div>
+    </div>
+</div>
+
